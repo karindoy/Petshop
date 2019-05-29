@@ -1,0 +1,4 @@
+1-tirar o sqlexception
+2-pesquisa direcionada
+3-passar o model como parametro
+4-entidade de relacionamento
