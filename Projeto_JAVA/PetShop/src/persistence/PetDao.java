@@ -11,10 +11,10 @@ import java.util.List;
 import model.Pet;
 
 public class PetDao {
+	private static Connection conexao = ConexaoFactory.conectar();
 	
-	public static void AdicionarPet(Pet pet) throws SQLException, ClassNotFoundException{
-		Connection conexao = ConexaoFactory.conectar();
-		
+	public void AdicionarPet(Pet pet) throws SQLException {
+			
 		String sql = "{CALL p_insere_pet(?,?,?,?,?)}";
 		CallableStatement cs = conexao.prepareCall(sql);
 		
@@ -24,11 +24,11 @@ public class PetDao {
 		cs.setString(4, pet.getNascimento());
 		cs.setDouble(5, pet.getPeso());
 		cs.execute();
+		cs.close();
 	}
 	
-	public static List<Pet> ConsultarPets() throws SQLException, ClassNotFoundException{
-		Connection conexao = ConexaoFactory.conectar();
-		
+	public  List<Pet> ConsultarPets() throws SQLException{
+
 		List<Pet> listaPets = new ArrayList<Pet>();
 		String sql = "SELECT nome, raca, sexo, nascimento, peso, dono FROM pets";
 

@@ -1,5 +1,14 @@
 USE `petshop` ;
-
+-- -----------------------------------------------------
+-- 				deleta dados das tabelas
+-- -----------------------------------------------------
+delete from agendamento where idagendamento>0;
+delete from pet where idpet>0;
+delete from dono where iddono>0;
+delete from produto where idproduto>0;
+-- -----------------------------------------------------
+-- 				inseri dados das tabelas
+-- -----------------------------------------------------
 select * from usuarios;
 insert into usuarios(login,email, senha) 
 values
@@ -7,13 +16,14 @@ values
 ("bilu", "bilu@gmail.com","bilu"),
 ("dezaum", "dezaum@gmail.com","dezaum");
 
+
 select * from dono;
 insert into dono(nome,telefone1, telefone2, bairro, logradouro, num, complemento) 
 values
 ("Joao", "(11) 98765-4321","(11) 91234-5678","bairro1","rua log 4", "20", null),
-("Karin", "(11) 2789-4123",null,"bairro2","rua log 2", "15", "csa2"),
-("Andre", "cachorro","husk siberiano","bairro2","rua log 3", "100", "apt 2 blc C"),
-("Zezinho", "toupeira","toupeira careca","bairro3","rua log 1", "8", null);
+("Karin", "(11) 2789-4123","(11) 3333-3333","bairro2","rua log 2", "15", "csa2"),
+("Andre", "(11) 1111-1111","(11) 2222-2222","bairro2","rua log 3", "100", "apt 2 blc C"),
+("Zezinho", "(11) 1111-1111",null,null,null, null, null);
 
 select * from pet;
 insert into Pet(nome,animal, raca, sexo, peso, tamanho, dono_id) 
@@ -21,8 +31,8 @@ values
 ("Pituka", "cachorro","SRD","femea","5.48", 0.20,1),
 ("Fuinha", "gato","SRD","femea","2.65", 0.15,2),
 ("ghost", "cachorro","husk siberiano","macho","30.5", 1.00,3),
-("rufus", "toupeira","toupeira careca","macho","1.2", 0.8,4);
-
+("rufus", "toupeira","toupeira careca","macho","1.2", 0.8,4),
+("rufus2", "toupeira","toupeira careca","macho","1.2", 0.8,1);
 
 select * from servicos;
 insert into servicos(nome,preco) 

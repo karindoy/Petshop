@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import model.Dono;
 import model.Pet;
 import persistence.DonoDao;
-import persistence.PetDao;
 
 
 @WebServlet("/inserePet")
@@ -46,12 +45,13 @@ public class PetServlet extends HttpServlet {
 		d.setTelefone1(request.getParameter("telefone"));
 		d.setTelefone2(request.getParameter("telefone2"));
 		
-		try {
-			//PetDao.AdicionarPet(p);
-			DonoDao.AdicionarDono(d);
-		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+	
+			try {
+				DonoDao.AdicionarDono(d);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		
 	}
 
 }

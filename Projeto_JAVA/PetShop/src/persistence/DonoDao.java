@@ -11,25 +11,25 @@ import java.util.List;
 import model.Dono;
 
 public class DonoDao {
+	private static Connection conexao = ConexaoFactory.conectar();
 	
-	public static void AdicionarDono(Dono dono) throws SQLException, ClassNotFoundException{
-		Connection conexao = ConexaoFactory.conectar();
+	public static void AdicionarDono(Dono dono) throws SQLException{
 		
 		String sql = "{CALL p_inserirDono(?,?,?,?,?,?,?)}";
 		CallableStatement cs = conexao.prepareCall(sql);
 		
 		cs.setString(1, dono.getNome());
+		cs.setString(6, dono.getTelefone1());
+		cs.setString(7, dono.getTelefone2());
 		cs.setString(2, dono.getBairro());
 		cs.setString(3, dono.getLogradouro());
 		cs.setString(4, dono.getNum());
 		cs.setString(5, dono.getComplemento());
-		cs.setString(6, dono.getTelefone1());
-		cs.setString(7, dono.getTelefone2());
 		cs.execute();
+		cs.close();
 	}
 	
-	public static List<Dono> ConsultarDonos() throws SQLException, ClassNotFoundException{
-		Connection conexao = ConexaoFactory.conectar();
+	public List<Dono> ConsultarDonos() throws SQLException{
 		
 		List<Dono> listaDono = new ArrayList<Dono>();
 		String sql = "SELECT nome, bairro, telefone1, telefone2 FROM dono";
