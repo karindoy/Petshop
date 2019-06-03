@@ -35,33 +35,23 @@ values
 ("rufus2", "toupeira","toupeira careca","macho","1.2", 0.8,1);
 
 select * from servicos;
-insert into servicos(nome,preco) 
-values
-("banho", "30.50"),
-("tosa", "20.50"),
-("unhas", "10");
+
 
 select * from agendamento;
-insert into agendamento(dia,hora, pet_id, servicos_id) 
+insert into agendamento(dia,hora,estado, pet_id, servicos_id) 
 values
-("2019/06/22", "16:30", 1, 1),
-("2019/05/22", "14:30", 3, 2),
-("2019/05/22", "18:00", 2, 1),
-("2019/05/22", "16:15", 4, 1);
+("2019/06/22", "16:30","agendado", 1, 1),
+("2019/05/22", "14:30","agendado", 3, 2),
+("2019/05/22", "18:00","cancelado", 2, 1),
+("2019/05/22", "16:15","agendado", 4, 1);
 
 select * from produto;
-insert into produto(nome,preco, categoria, descricao) 
+insert into produto(nome,preco, categoria,quantidade, descricao, validade) 
 values
-("Racao carne golden",15.25, "alimento", "descricao1") ,
-("Racao frango golden",16.25, "alimento", "descricao2") ,
-("shampoo",10.99, "higiene", null) ,
-("vestido rosa cachorro P",30.99, "roupas", "com patinhas pretas");
+("Racao carne golden",15.25, "alimento", 60,"descricao1", "2019/05/22") ,
+("Racao frango golden",16.25, "alimento",20, "descricao2", "2019/05/22") ,
+("shampoo",10.99, "higiene",10, null, null) ,
+("vestido rosa cachorro P",30.99, "roupas",2, "com patinhas pretas", null);
 
 
-select *from estoque;
-insert into estoque(quantidade, produto_id) 
-values
-(60, 1) ,
-(13, 2) ,
-(0, 3) ,
-(5, 4) ;
+

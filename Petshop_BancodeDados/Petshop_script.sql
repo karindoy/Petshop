@@ -74,6 +74,15 @@ CREATE TABLE IF NOT EXISTS `petshop`.`Servicos` (
   UNIQUE INDEX `idServicos_UNIQUE` (`idServicos` ASC) VISIBLE)
 ENGINE = InnoDB;
 
+insert into servicos(nome,preco) 
+values
+("banho", "30.50"),
+("tosa", "20.50"),
+("unhas", "10"),
+("Banho e unhas", "35.50"),
+("Banho e tosa", "40.50"),
+("completo", "45");
+
 
 -- -----------------------------------------------------
 -- Table `petshop`.`Agendamento`
@@ -82,8 +91,10 @@ CREATE TABLE IF NOT EXISTS `petshop`.`Agendamento` (
   `idAgendamento` INT NOT NULL AUTO_INCREMENT,
   `dia` DATE NULL,
   `hora` VARCHAR(5) NULL,
+  `estado` VARCHAR(20) NULL,
   `Pet_id` INT NOT NULL,
   `Servicos_id` INT NOT NULL,
+  
   PRIMARY KEY (`idAgendamento`, `Pet_id`),
   UNIQUE INDEX `idAgendamento_UNIQUE` (`idAgendamento` ASC) VISIBLE,
   INDEX `fk_Agendamento_Pet1_idx` (`Pet_id` ASC) VISIBLE,
@@ -109,6 +120,7 @@ CREATE TABLE IF NOT EXISTS `petshop`.`Produto` (
   `nome` VARCHAR(45) NOT NULL,
   `preco` DECIMAL(8,2) NOT NULL,
   `categoria` VARCHAR(45) NULL,
+  `quantidade` INT NULL,
   `descricao` VARCHAR(255) NULL,
   `validade` Date NULL,
   PRIMARY KEY (`idProduto`),
@@ -117,42 +129,22 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `petshop`.`Estoque`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `petshop`.`Estoque` (
-  `idEstoque` INT NOT NULL AUTO_INCREMENT,
-  `quantidade` INT NOT NULL,
-  `Produto_id` INT NOT NULL,
-  PRIMARY KEY (`idEstoque`, `Produto_id`),
-  UNIQUE INDEX `idEstoque_UNIQUE` (`idEstoque` ASC) VISIBLE,
-  INDEX `fk_Estoque_Produto1_idx` (`Produto_id` ASC) VISIBLE,
-  CONSTRAINT `fk_Estoque_Produto1`
-    FOREIGN KEY (`Produto_id`)
-    REFERENCES `petshop`.`Produto` (`idProduto`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `petshop`.`Venda`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `petshop`.`Venda` (
-  `idVenda` INT NOT NULL AUTO_INCREMENT,
-  `data` DATETIME NULL,
-  `valortotal` DECIMAL(9,2) NOT NULL,
-  `Estoque_idEstoque` INT NOT NULL,
-  `Estoque_Produto_id` INT NOT NULL,
-  `ValorRecebido` DECIMAL(7,2) NOT NULL,
-  PRIMARY KEY (`idVenda`, `Estoque_idEstoque`, `Estoque_Produto_id`),
-  UNIQUE INDEX `idVenda_UNIQUE` (`idVenda` ASC) VISIBLE,
-  INDEX `fk_Venda_Estoque1_idx` (`Estoque_idEstoque` ASC, `Estoque_Produto_id` ASC) VISIBLE,
-  CONSTRAINT `fk_Venda_Estoque1`
-    FOREIGN KEY (`Estoque_idEstoque` , `Estoque_Produto_id`)
-    REFERENCES `petshop`.`Estoque` (`idEstoque` , `Produto_id`)
+CREATE TABLE `petshop`.`venda` (
+  `idvenda` INT NOT NULL,
+  `dia` DATE NULL,
+  `valortotal` decimal(9,2) NULL,
+  `quantidade` int NULL,
+  `Produto_id` INT NOT NULL,
+  PRIMARY KEY (`idvenda`),
+  INDEX `Produto_id_idx` (`Produto_id` ASC) VISIBLE,
+  CONSTRAINT `Produto_id`
+    FOREIGN KEY (`Produto_id`)
+    REFERENCES `petshop`.`produto` (`idProduto`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
+
 
 
 -- -----------------------------------------------------
@@ -161,16 +153,14 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `petshop`.`fatura` (
   `idfatura` INT NOT NULL AUTO_INCREMENT,
   `Valortotal` DECIMAL(7,2) NOT NULL,
-  `Data` DATETIME NULL,
-  `Agendamento_idAgendamento` INT NOT NULL,
-  `Agendamento_Pet_id` INT NOT NULL,
+  `Agendamento_id` INT NOT NULL,
   `ValorRecebido` DECIMAL(7,2) NOT NULL,
-  PRIMARY KEY (`idfatura`, `Agendamento_idAgendamento`, `Agendamento_Pet_id`),
+  PRIMARY KEY (`idfatura`, `Agendamento_id`),
   UNIQUE INDEX `idfatura_UNIQUE` (`idfatura` ASC) VISIBLE,
-  INDEX `fk_fatura_Agendamento1_idx` (`Agendamento_idAgendamento` ASC, `Agendamento_Pet_id` ASC) VISIBLE,
+  INDEX `fk_fatura_Agendamento1_idx` (`Agendamento_id` ASC) VISIBLE,
   CONSTRAINT `fk_fatura_Agendamento1`
-    FOREIGN KEY (`Agendamento_idAgendamento` , `Agendamento_Pet_id`)
-    REFERENCES `petshop`.`Agendamento` (`idAgendamento` , `Pet_id`)
+    FOREIGN KEY (`Agendamento_idAgendamento`)
+    REFERENCES `petshop`.`Agendamento` (`idAgendamento`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

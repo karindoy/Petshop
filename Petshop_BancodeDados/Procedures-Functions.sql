@@ -1,7 +1,6 @@
 use petshop;
 
-call p_inserirDono ("nome","tel1","tel2","bairro","log","num","compt", @p_iddono);
-select @p_iddono;
+
 -- -----------------------------------------------------
 -- 				PROCEDURE `p_inserirDono`
 -- -----------------------------------------------------
@@ -18,6 +17,9 @@ desc limit 1);
 END
 $
 
+
+call p_inserirDono ("nome","tel1","tel2","bairro","log","num","compt", @p_iddono);
+select @p_iddono;
 -- -----------------------------------------------------
 -- 				PROCEDURE `p_inserirPet`
 -- -----------------------------------------------------
@@ -39,7 +41,7 @@ order by iddono
 desc limit 10;
 
 -- -----------------------------------------------------
--- 		[Agendamento] consultar ultimos pets cadastrados
+-- 		[Agendamento/ Pet] consultar ultimos pets cadastrados
 -- -----------------------------------------------------
 call `p_consultapet`
 DELIMITER $
@@ -60,26 +62,113 @@ call p_inserirAgenda ("2019/06/23", "15:00", 1, 3);
 DELIMITER $
 CREATE PROCEDURE `p_inserirAgenda`(in p_dia varchar(10),in p_hora varchar(5), in p_pet_id int, in p_servicos_id int)
 BEGIN
-insert into agendamento(dia,hora, pet_id, servicos_id) 
+insert into agendamento(dia,hora,estado, pet_id, servicos_id) 
 values
-(p_dia, p_hora, p_pet_id, p_servicos_id);
+(p_dia, p_hora,"agendado", p_pet_id, p_servicos_id);
 END
 $
 
 -- -----------------------------------------------------
 -- 		[ver Agenda] consultar agendamento
 -- -----------------------------------------------------
-call p_consultaAgenda ("2019/06/22");
+call p_consultaAgenda ("2019/06/23");
 
 DELIMITER $
 CREATE PROCEDURE `p_consultaAgenda`(in p_dia varchar(10))
 BEGIN
-select ag.dia, ag.hora, pet.nome, serv.nome 
+select ag.dia, ag.hora, pet.nome as pet_nome, serv.nome 
 from agendamento ag 
 inner join pet pet
 on ag.pet_id= pet.idPet
 inner join servicos serv 
 on ag.servicos_id=serv.idservicos 
- where ag.dia = p_dia;
+ where ag.dia = p_dia and estado ="agendado";
+END
+$
+
+-- -----------------------------------------------------
+-- 		[Produto] inserir produto
+-- -----------------------------------------------------
+DELIMITER $
+CREATE PROCEDURE `p_inserirProduto`(in p_nome varchar(45),in p_preco DECIMAL(8,2), in p_categoria VARCHAR(45),in p_quantidade int, in p_descricao VARCHAR(255), in p_validade varchar(10))
+BEGIN
+insert into produto(nome,preco, categoria,quantidade, descricao, validade) 
+values
+(p_nome, p_preco, p_categoria,p_quantidade, p_descricao, p_validade);
+END
+$
+
+select * from produto
+-- -----------------------------------------------------
+-- 		[Produto] consultar produto
+-- -----------------------------------------------------
+
+DELIMITER $
+CREATE PROCEDURE `consultaTodosProduto`( in p_categoria VARCHAR(45), in detalhes VARCHAR(20))
+BEGIN
+	case
+	when (p_categoria is null and detalhes = "simples")
+	then select nome, preco, quantidade 
+		 from produto;
+	when (p_categoria is not null and detalhes = "simples")
+	then select nome, preco, quantidade 
+		 from produto
+		 where  categoria = p_categoria;
+	when (p_categoria is null and detalhes = "detalhada")
+	then select * from produto;
+         
+	when (p_categoria is not null and detalhes = "detalhada")
+	then select * from produto
+		 where  categoria = p_categoria;
+    end case;
+END
+$
+
+
+call `consultaTodosProduto` ("alimento", "detalhada");
+/*
+`consultaTodosProduto` (null, "simples"); 
+se null mostrar tudo
+else
+mostrar pela categoria
+*/
+
+select  * from venda
+
+DELIMITER $
+CREATE FUNCTION `calculaValorTotal` (p_quantidade int, p_Produto_id int)
+RETURNS decimal (9,2)
+BEGIN
+DECLARE precop decimal (9,2);
+DECLARE valortotal decimal (9,2);
+
+set precop =(select preco from produto 
+where p_Produto_id= idProduto);
+
+set valortotal= (precop*p_quantidade);
+
+RETURN valortotal;
+END
+$
+
+DELIMITER $
+CREATE PROCEDURE `p_inserirVenda`(in p_idVenda int,in p_dia varchar(10), in p_valortotal decimal(9,2),in p_quantidade int, in p_produto_id int)
+BEGIN
+
+set valortotal=  (select calculaValorTotal (p_quantidade , p_Produto_id));
+insert into venda(idvenda,dia, valortotal,quantidade, produto_id) 
+values
+(p_idVenda, p_dia, p_valortotal,p_quantidade, p_produto_id);
+END
+$
+
+DELIMITER $
+CREATE PROCEDURE `p_inserirFatura`(in p_idservicos int, in p_Agendamento_id int)
+BEGIN
+
+set valortotal=  (select preco from servicos where idServicos=p_idservicos);
+insert into fatura(valortotal, Agendamento_id) 
+values
+(p_valortotal,p_quantidade, p_Agendamento_id);
 END
 $
