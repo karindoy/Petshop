@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `petshop`.`Pet` (
   CONSTRAINT `fk_pet_dono_Dono`
     FOREIGN KEY (`Dono_id`)
     REFERENCES `petshop`.`Dono` (`idDono`),
-  UNIQUE INDEX `idPet_UNIQUE` (`idPet` ASC) VISIBLE)
+  UNIQUE INDEX `idPet_UNIQUE` (`idPet` ASC))
   
 ENGINE = InnoDB;
 
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `petshop`.`Dono` (
   `num` VARCHAR(10) NULL,
   `complemento` VARCHAR(45) NULL,
   PRIMARY KEY (`idDono`),
-  UNIQUE INDEX `idDono_UNIQUE` (`idDono` ASC) VISIBLE)
+  UNIQUE INDEX `idDono_UNIQUE` (`idDono` ASC) )
 ENGINE = InnoDB;
 
 
@@ -71,16 +71,17 @@ CREATE TABLE IF NOT EXISTS `petshop`.`Servicos` (
   `nome` VARCHAR(45) NOT NULL,
   `preco` DECIMAL(7,2) NOT NULL,
   PRIMARY KEY (`idServicos`),
-  UNIQUE INDEX `idServicos_UNIQUE` (`idServicos` ASC) VISIBLE)
+  UNIQUE INDEX `idServicos_UNIQUE` (`idServicos` ASC) )
 ENGINE = InnoDB;
 
 insert into servicos(nome,preco) 
 values
 ("banho", "30.50"),
-("tosa", "20.50"),
-("unhas", "10"),
 ("Banho e unhas", "35.50"),
+("tosa", "20.50"),
+("tosa e unhas", "35.50"),
 ("Banho e tosa", "40.50"),
+("unhas", "10"),
 ("completo", "45");
 
 
@@ -96,9 +97,9 @@ CREATE TABLE IF NOT EXISTS `petshop`.`Agendamento` (
   `Servicos_id` INT NOT NULL,
   
   PRIMARY KEY (`idAgendamento`, `Pet_id`),
-  UNIQUE INDEX `idAgendamento_UNIQUE` (`idAgendamento` ASC) VISIBLE,
-  INDEX `fk_Agendamento_Pet1_idx` (`Pet_id` ASC) VISIBLE,
-  INDEX `fk_Agendamento_Servicos1_idx` (`Servicos_id` ASC) VISIBLE,
+  UNIQUE INDEX `idAgendamento_UNIQUE` (`idAgendamento` ASC) ,
+  INDEX `fk_Agendamento_Pet1_idx` (`Pet_id` ASC) ,
+  INDEX `fk_Agendamento_Servicos1_idx` (`Servicos_id` ASC) ,
   CONSTRAINT `fk_Agendamento_Pet1`
     FOREIGN KEY (`Pet_id`)
     REFERENCES `petshop`.`Pet` (`idPet`)
@@ -124,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `petshop`.`Produto` (
   `descricao` VARCHAR(255) NULL,
   `validade` Date NULL,
   PRIMARY KEY (`idProduto`),
-  UNIQUE INDEX `idProduto_UNIQUE` (`idProduto` ASC) VISIBLE)
+  UNIQUE INDEX `idProduto_UNIQUE` (`idProduto` ASC) )
 ENGINE = InnoDB;
 
 
@@ -138,7 +139,7 @@ CREATE TABLE `petshop`.`venda` (
   `quantidade` int NULL,
   `Produto_id` INT NOT NULL,
   PRIMARY KEY (`idvenda`),
-  INDEX `Produto_id_idx` (`Produto_id` ASC) VISIBLE,
+  INDEX `Produto_id_idx` (`Produto_id` ASC) ,
   CONSTRAINT `Produto_id`
     FOREIGN KEY (`Produto_id`)
     REFERENCES `petshop`.`produto` (`idProduto`)
@@ -155,11 +156,11 @@ CREATE TABLE IF NOT EXISTS `petshop`.`fatura` (
   `Valortotal` DECIMAL(7,2) NOT NULL,
   `Agendamento_id` INT NOT NULL,
   `ValorRecebido` DECIMAL(7,2) NOT NULL,
-  PRIMARY KEY (`idfatura`, `Agendamento_id`),
-  UNIQUE INDEX `idfatura_UNIQUE` (`idfatura` ASC) VISIBLE,
-  INDEX `fk_fatura_Agendamento1_idx` (`Agendamento_id` ASC) VISIBLE,
+  PRIMARY KEY (`idfatura`),
+  UNIQUE INDEX `idfatura_UNIQUE` (`idfatura` ASC) ,
+  INDEX `fk_fatura_Agendamento1_idx` (`Agendamento_id` ASC) ,
   CONSTRAINT `fk_fatura_Agendamento1`
-    FOREIGN KEY (`Agendamento_idAgendamento`)
+    FOREIGN KEY (`Agendamento_id`)
     REFERENCES `petshop`.`Agendamento` (`idAgendamento`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

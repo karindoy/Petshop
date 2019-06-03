@@ -9,6 +9,24 @@ public class Pet {
 	private Double peso;
 	private int id_dono;
 	private int id;
+	private String animal;
+	private Double tamanho;
+
+	public String getAnimal() {
+		return animal;
+	}
+
+	public void setAnimal(String animal) {
+		this.animal = animal;
+	}
+
+	public Double getTamanho() {
+		return tamanho;
+	}
+
+	public void setTamanho(Double tamanho) {
+		this.tamanho = tamanho;
+	}
 
 	public int getId() {
 		return id;

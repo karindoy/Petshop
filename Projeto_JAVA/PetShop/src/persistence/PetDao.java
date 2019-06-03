@@ -11,24 +11,27 @@ import java.util.List;
 import model.Pet;
 
 public class PetDao {
-	private static Connection conexao = ConexaoFactory.conectar();
 	
-	public void AdicionarPet(Pet pet) throws SQLException {
-			
-		String sql = "{CALL p_insere_pet(?,?,?,?,?)}";
+	public static void AdicionarPet(Pet pet) throws SQLException, ClassNotFoundException{
+		Connection conexao = ConexaoFactory.conectar();
+		
+		String sql = "{CALL p_inserirPet(?,?,?,?,?,?,?,?)}";
 		CallableStatement cs = conexao.prepareCall(sql);
 		
 		cs.setString(1, pet.getNome());
-		cs.setString(2, pet.getRaca());
-		cs.setString(3, pet.getSexo());
-		cs.setString(4, pet.getNascimento());
+		cs.setString(2, pet.getAnimal());
+		cs.setString(3, pet.getRaca());
+		cs.setString(4, pet.getSexo());
 		cs.setDouble(5, pet.getPeso());
+		cs.setDouble(6, pet.getTamanho());
+		cs.setDouble(7, pet.getId_dono());
+		cs.setString(8, pet.getNascimento());
 		cs.execute();
-		cs.close();
 	}
 	
-	public  List<Pet> ConsultarPets() throws SQLException{
-
+	public static List<Pet> ConsultarPets() throws SQLException, ClassNotFoundException{
+		Connection conexao = ConexaoFactory.conectar();
+		
 		List<Pet> listaPets = new ArrayList<Pet>();
 		String sql = "SELECT nome, raca, sexo, nascimento, peso, dono FROM pets";
 

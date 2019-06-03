@@ -2,7 +2,6 @@ package persistence;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,26 +14,27 @@ public class AgendamentoDao {
 	public static void AdicionarAgendamento(Agendamento age) throws SQLException{
 		Connection conexao = ConexaoFactory.conectar();
 		
-		String sql = "{CALL p_insere_agendamento(?,?,?,?)}";
+		String sql = "{CALL p_inserirAgenda(?,?,?,?)}";
 		CallableStatement cs = conexao.prepareCall(sql);
 		
-		cs.setInt(1, age.getPet());
-		cs.setString(2, age.getDia());
-		cs.setString(3, age.getHora());
-		cs.setString(4, age.getStatus());
+		cs.setString(1, age.getDia());
+		cs.setString(2, age.getHora());
+		cs.setInt(3, age.getPet());
+		cs.setInt(4,age.getServico());
 		cs.execute();
 	}
 	
-	public static List<Agendamento> ConsultarAgendamentos() throws SQLException{
+	public static List<Agendamento> ConsultarAgendamentos(String dia) throws SQLException{
 		List<Agendamento> listaAgendamento = new ArrayList<Agendamento>();
 		try {
 			Connection conexao = ConexaoFactory.conectar();
 			
 
-			String sql = "SELECT id_pet, dia, hora, status FROM agendamento";
-
-			PreparedStatement ps = conexao.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
+			String sql = "{CALL p_consultaAgenda(?)}";
+			CallableStatement cs = conexao.prepareCall(sql);
+			cs.setString(1, dia);
+			
+			ResultSet rs = cs.executeQuery();
 			while(rs.next()){
 				Agendamento a = new Agendamento();
 				a.setPet(rs.getInt("id_pet"));

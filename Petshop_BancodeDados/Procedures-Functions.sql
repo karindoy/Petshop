@@ -3,6 +3,7 @@ use petshop;
 
 -- -----------------------------------------------------
 -- 				PROCEDURE `p_inserirDono`
+-- Inseri em dono(nome,telefone1, telefone2, bairro, logradouro, num, complemento)  e retorna o id do dono para CADASTRO de PET
 -- -----------------------------------------------------
 DELIMITER $
 CREATE PROCEDURE `p_inserirDono`(in p_nome varchar(100),in p_telefone1 varchar(15), in p_telefone2 varchar(15), in p_bairro varchar(100), in p_logradouro varchar(100), in p_num varchar(10), in p_complemento varchar(45), out p_iddono int)
@@ -17,9 +18,19 @@ desc limit 1);
 END
 $
 
-
+-- TESTE chamada da procedure inserir dono
 call p_inserirDono ("nome","tel1","tel2","bairro","log","num","compt", @p_iddono);
 select @p_iddono;
+
+-- -----------------------------------------------------
+-- 				consultar dono por nome 
+-- consulta de dono por nome, ordena pelos 10 ultimos cadastrados
+-- -----------------------------------------------------
+SELECT * FROM dono 
+WHERE nome LIKE '%karin%' 
+order by iddono 
+desc limit 10;
+
 -- -----------------------------------------------------
 -- 				PROCEDURE `p_inserirPet`
 -- -----------------------------------------------------
@@ -32,13 +43,6 @@ values
 (p_nome, p_animal, p_raca, p_sexo, p_peso, p_tamanho, p_dono_id, p_nasc);
 END
 $
--- -----------------------------------------------------
--- 				consultar dono por nome
--- -----------------------------------------------------
-SELECT * FROM dono 
-WHERE nome LIKE '%karin%' 
-order by iddono 
-desc limit 10;
 
 -- -----------------------------------------------------
 -- 		[Agendamento/ Pet] consultar ultimos pets cadastrados
@@ -152,9 +156,9 @@ END
 $
 
 DELIMITER $
-CREATE PROCEDURE `p_inserirVenda`(in p_idVenda int,in p_dia varchar(10), in p_valortotal decimal(9,2),in p_quantidade int, in p_produto_id int)
+CREATE PROCEDURE `p_inserirVenda`(in p_idVenda int,in p_dia varchar(10),in p_quantidade int, in p_produto_id int)
 BEGIN
-
+	declare valortotal decimal (9,2);
 set valortotal=  (select calculaValorTotal (p_quantidade , p_Produto_id));
 insert into venda(idvenda,dia, valortotal,quantidade, produto_id) 
 values
@@ -163,12 +167,30 @@ END
 $
 
 DELIMITER $
+CREATE FUNCTION `F_idVenda` ()
+RETURNS int
+BEGIN
+DECLARE idvenda int;
+
+set idvenda =(select idvenda from venda 
+order by idvenda 
+desc limit 1);
+set idvenda= idvenda+1;
+
+set valortotal= (precop*p_quantidade);
+
+RETURN idvenda;
+END
+$
+
+DELIMITER $
 CREATE PROCEDURE `p_inserirFatura`(in p_idservicos int, in p_Agendamento_id int)
 BEGIN
-
+	declare valortotal decimal (9,2);
 set valortotal=  (select preco from servicos where idServicos=p_idservicos);
 insert into fatura(valortotal, Agendamento_id) 
 values
 (p_valortotal,p_quantidade, p_Agendamento_id);
 END
 $
+

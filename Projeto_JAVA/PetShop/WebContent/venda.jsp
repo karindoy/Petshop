@@ -5,8 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Venda</title>
+<link rel="stylesheet" type="text/css" href="css/aparencia.css" media="screen" />
 </head>
 <body>
+	
 	<form action="vendaServlet" method="post" target="_Blank">
 		<h2>Venda</h2>
 		<label>Produto:</label>

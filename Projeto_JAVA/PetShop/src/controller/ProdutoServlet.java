@@ -34,6 +34,12 @@ public class ProdutoServlet extends HttpServlet {
 		p.setPreco(Double.parseDouble(request.getParameter("valorProd")));
 		p.setQuantidade(Integer.parseInt(request.getParameter("quantProd")));
 		p.setValidade(request.getParameter("valiProd"));
+		p.setDescricao(request.getParameter("descricao"));
+		
+		if(p.getValidade().equals("")){
+			p.setValidade(null);
+			System.out.println("Null");
+		}
 		
 		try {
 			ProdutoDao.AdicionarProduto(p);

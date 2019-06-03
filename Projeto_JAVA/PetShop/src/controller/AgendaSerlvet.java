@@ -27,11 +27,12 @@ public class AgendaSerlvet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Agendamento age = new Agendamento();
 		
-		String id = request.getParameter("cBoxPets");
-		age.setPet(Integer.parseInt(id));
-		age.setDia(request.getParameter("diaAgenda"));
-		age.setHora(request.getParameter("horaAgenda"));
-		age.setStatus("Em Espera");
+		String idPet = request.getParameter("cBoxPets");
+		String idServico = request.getParameter("cBoxServico");
+		age.setPet(Integer.parseInt(idPet));
+		age.setDia(request.getParameter("DiaAgenda"));
+		age.setHora(request.getParameter("HoraAgenda"));
+		age.setServico(Integer.parseInt(idServico));
 		
 		try {
 			AgendamentoDao.AdicionarAgendamento(age);

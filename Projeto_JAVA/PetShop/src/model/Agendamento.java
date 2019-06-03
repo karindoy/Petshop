@@ -1,13 +1,28 @@
 package model;
 
-
-
 public class Agendamento {
 
 	private int id_pet;
 	private String hora;
 	private String status;
 	private String dia;
+	private int servico;
+
+	public int getId_pet() {
+		return id_pet;
+	}
+
+	public void setId_pet(int id_pet) {
+		this.id_pet = id_pet;
+	}
+
+	public int getServico() {
+		return servico;
+	}
+
+	public void setServico(int servico) {
+		this.servico = servico;
+	}
 
 	public int getPet() {
 		return id_pet;
