@@ -1,0 +1,86 @@
+/* Define a altura do corpo e o documento como 100% para ativar as "guias de página inteira" */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+  background-image: url(IMAGENS/FUNDOPET.png);
+}
+
+/* Links de guias de estilo */
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+}
+
+.tablink:hover {
+  background-color: #777;
+}
+
+/* Estiliza o conteúdo da guia (e adicione a altura: 100% para o conteúdo da página inteira) */
+.tabcontent {
+  color: white;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+
+
+
+
+
+/*CSS DO BOTAO*/
+button {
+  -webkit-transition-duration: 0.4s; 
+  transition-duration: 0.4s;
+ 
+}
+
+button:hover {
+  background-color: rgb(245, 140, 70); /* Green */
+  color: white;
+ 
+}
+
+/*CSS DA TABELA*/
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+	width: 100%;
+  background-color: rgb(209, 208, 204);
+
+}
+thead {
+  background: #ccc url(IMAGENS/BARRA.jpg) repeat-x left center;
+  border-top: 1px solid #a5a5a5;
+  border-bottom: 1px solid #a5a5a5;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+	background-color: #dddddd;
+}
+tr:hover {
+  background-color:#3d80df;
+  color: #fff;
+}
+thead tr:hover {
+  background-color: transparent;
+  color: inherit;
+}
+
+
+
+
+
