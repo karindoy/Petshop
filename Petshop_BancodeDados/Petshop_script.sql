@@ -2,6 +2,7 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 set global time_zone ='+4:00';
+SET GLOBAL log_bin_trust_function_creators = 1;
 
 -- -----------------------------------------------------
 -- Schema petshop
@@ -10,7 +11,7 @@ set global time_zone ='+4:00';
 -- -----------------------------------------------------
 -- Schema petshop
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `petshop` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `petshop` DEFAULT CHARACTER SET utf8mb4;
 USE `petshop` ;
 
 -- -----------------------------------------------------
@@ -96,9 +97,8 @@ CREATE TABLE IF NOT EXISTS `petshop`.`Agendamento` (
   `Pet_id` INT NOT NULL,
   `Servicos_id` INT NOT NULL,
   
-  PRIMARY KEY (`idAgendamento`, `Pet_id`),
+  PRIMARY KEY (`idAgendamento`),
   UNIQUE INDEX `idAgendamento_UNIQUE` (`idAgendamento` ASC) ,
-  INDEX `fk_Agendamento_Pet1_idx` (`Pet_id` ASC) ,
   INDEX `fk_Agendamento_Servicos1_idx` (`Servicos_id` ASC) ,
   CONSTRAINT `fk_Agendamento_Pet1`
     FOREIGN KEY (`Pet_id`)

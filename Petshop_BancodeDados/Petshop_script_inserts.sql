@@ -53,5 +53,4 @@ values
 ("shampoo",10.99, "higiene",10, null, null) ,
 ("vestido rosa cachorro P",30.99, "roupas",2, "com patinhas pretas", null);
 
-
-
+select * from venda
