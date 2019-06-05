@@ -8,7 +8,9 @@
 <link rel="stylesheet" type="text/css" href="css/aparencia.css" media="screen" />
 </head>
 <body>
-	
+	<form action="IniciarVenda" method="post" target="_Blank">
+		<input type="submit" value="Chamar ID">
+	</form>
 	<form action="vendaServlet" method="post" target="_Blank">
 		<h2>Venda</h2>
 		<label>Produto:</label>
@@ -19,7 +21,13 @@
 			<option value="25">Sabonete</option>
 			<option value="30">Roupa</option>
 		</select>
-		
+		<label>Quantidade:</label>
+		<input type="text" name="qtd" id="qtd" size="5">
+		<label>Dia:</label>
+	    <input type="text" id="DiaVenda" name="DiaVenda" placeholder="dd/mm/aaaa"></input>
+		<label>ID Venda:</label>
+		<%String id = (String)request.getAttribute("id"); %>
+		<input type="text" name="id" id="id" value="<%=id%>" size="5">
 		<br>
 		<br>
 		<input type="submit" value="Enviar">

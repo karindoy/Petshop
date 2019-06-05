@@ -49,7 +49,7 @@
 			</select>
 			<br>
 			<label>Dia:</label>
-	        <input type="text" id="DiaAgenda" style="width:100%" placeholder="aaaa/mm/dd"></input>
+	        <input type="text" id="DiaAgenda" style="width:100%" placeholder="dd/mm/aaaa"></input>
 	        <label>Hora:</label>
 	        <input type="text" id="HoraAgenda"style="width:100%" placeholder="00:00"></input>
 	        <label>Serviço:</label>

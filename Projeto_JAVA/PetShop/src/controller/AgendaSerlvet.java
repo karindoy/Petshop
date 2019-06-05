@@ -29,7 +29,7 @@ public class AgendaSerlvet extends HttpServlet {
 		
 		String idPet = request.getParameter("cBoxPets");
 		String idServico = request.getParameter("cBoxServico");
-		age.setPet(Integer.parseInt(idPet));
+		age.setId_pet(Integer.parseInt(idPet));
 		age.setDia(request.getParameter("DiaAgenda"));
 		age.setHora(request.getParameter("HoraAgenda"));
 		age.setServico(Integer.parseInt(idServico));

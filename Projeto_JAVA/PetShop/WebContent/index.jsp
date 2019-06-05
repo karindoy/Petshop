@@ -45,9 +45,8 @@
 			</table>
 		</fieldset>
 		</br>
-		<button id="BtnNovoAgendamento"
-			onclick="window.open('Agendar.jsp','Agendar','resizable,height=600,width=800'); return false;" style="margin-left:10px ">Agendar</a></button>
-		<button id="BtnAltrAgendados"onclick="window.open('AlterarAgendamento.jsp','Alterar Agenda','resizable,height=600,width=800'); return false;" style="margin-left:10px ">Alterar Agendamento</button>
+		<button id="BtnNovoAgendamento"onclick="window.open('Agendar.jsp','Agendar','resizable,height=600,width=800'); return false;" style="margin-left:10px ">Agendar</a></button>
+		<button id="BtnOPCAgendamento" onclick="window.open('excAgenda.jsp','Exclui Cadastro Agenda','height=600,width=1024'); return false;" style="margin-left:10px ">Opçoes</button>
 	</div>
 
 
@@ -78,7 +77,7 @@
 				</fieldset>
 				
 				<button id="BtnCadPet" onclick="window.open('cadDono.jsp','Pets','height=600,width=1024'); return false;" style="margin-left:10px ">Cadastrar Pet</button>
-				<button id="EdtCadPet" onclick="window.open('EditarPet.jsp','Editar Cadastro Pet','height=600,width=1024'); return false;" style="margin-left:10px ">Editar</button>
+				<button id="ExcCadPet" onclick="window.open('excPet.jsp','Exclui Cadastro Pet','height=600,width=1024'); return false;" style="margin-left:10px ">Opçoes</button>
 	</div>
 
 	<div id="Produtos" class="tabcontent">
@@ -112,13 +111,14 @@
 				</fieldset></br>
 				
 				<button id="BtnCadPro" onclick="window.open('cadProduto.jsp','Produtos','height=350,width=800'); return false;" style="margin-left:10px ">Cadastrar Produto</button>
-				<button id="EdtCadPro" onclick="window.open('EditarProduto.jsp','Editar Produto','height=350,width=800'); return false;" style="margin-left:10px ">Editar</button>
+				<button id="ExcCadPro" onclick="window.open('excProduto.jsp','OPC Cadastro Produto','height=600,width=1024'); return false;" style="margin-left:10px ">Opçoes</button>
+				
 				
 			</div>
 
 	<div id="Loja" class="tabcontent">
 		<h3>Loja</h3>
-		<p>BEM VINDO A ÁREA DE GASTO ATÔMICO</p>
+		<button id="BtnVenda" onclick="window.open('venda.jsp','venda','height=600,width=1024'); return false;" style="margin-left:10px ">Vender</button>
 	</div>
 </body>
 

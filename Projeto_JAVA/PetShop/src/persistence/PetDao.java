@@ -27,28 +27,42 @@ public class PetDao {
 		cs.setDouble(7, pet.getId_dono());
 		cs.setString(8, pet.getNascimento());
 		cs.execute();
+		cs.close();
 	}
 	
 	public static List<Pet> ConsultarPets() throws SQLException, ClassNotFoundException{
 		Connection conexao = ConexaoFactory.conectar();
 		
 		List<Pet> listaPets = new ArrayList<Pet>();
-		String sql = "SELECT nome, raca, sexo, nascimento, peso, dono FROM pets";
+		String sql = "SELECT nome, animal, raca, sexo, peso, tamanho, Dono_id, nascimento FROM pet";
 
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()){
 			Pet p = new Pet();
 			p.setNome(rs.getString("nome"));
+			p.setAnimal(rs.getString("animal"));
 			p.setRaca(rs.getString("raca"));
 			p.setSexo(rs.getString("sexo"));
-			p.setNascimento(rs.getString("nascimento"));
 			p.setPeso(rs.getDouble("peso"));
-			p.setId_dono(rs.getInt("dono"));
+			p.setTamanho(rs.getDouble("tamanho"));
+			p.setId_dono(rs.getInt("Dono_id"));
+			p.setNascimento(rs.getString("nascimento"));
 			listaPets.add(p);
 		}
 		
 		return listaPets;
+	}
+	
+	public static void ExcluiPet(int idPet) throws SQLException, ClassNotFoundException{
+		Connection conexao = ConexaoFactory.conectar();
+		
+		String sql = "{CALL p_deletarPet(?)}";
+		CallableStatement cs = conexao.prepareCall(sql);
+		
+		cs.setInt(1, idPet);
+		cs.execute();
+		cs.close();
 	}
 	
 }

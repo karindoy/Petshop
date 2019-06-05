@@ -38,12 +38,11 @@ public class ProdutoServlet extends HttpServlet {
 		
 		if(p.getValidade().equals("")){
 			p.setValidade(null);
-			System.out.println("Null");
 		}
 		
 		try {
 			ProdutoDao.AdicionarProduto(p);
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		

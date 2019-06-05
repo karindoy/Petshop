@@ -49,7 +49,7 @@
 							<label>Tamanho:</label>
 							<input type="text" name="tamanho" id="tamanho" size="10">
 							<label>Nascimento:</label>
-							<input type="text" name="nasci" id="nasci" size="10" placeholder="aaaa/mm/dd">
+							<input type="text" name="nasci" id="nasci" size="10" placeholder="dd/mm/aaaa">
 						</td>
 					</tr>
 					<tr>

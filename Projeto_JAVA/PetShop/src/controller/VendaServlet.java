@@ -32,8 +32,12 @@ public class VendaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Venda v = new Venda();
 		String valorTotal = request.getParameter("cBoxVenda");
-		v.setValorTotal(Double.parseDouble(valorTotal));
-		
+		String id = request.getParameter("id");
+		String qtd = request.getParameter("qtd");
+		v.setValor_total(Double.parseDouble(valorTotal));
+		v.setId(Integer.parseInt(id));
+		v.setQuantidade(Integer.parseInt(qtd));
+		v.setData(request.getParameter("DiaVenda"));
 		try {
 			VendaDao.AdicionarVenda(v);
 		} catch (SQLException e) {

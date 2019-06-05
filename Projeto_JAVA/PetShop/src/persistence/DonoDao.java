@@ -29,7 +29,7 @@ public class DonoDao {
 		cs.registerOutParameter(8, Types.VARCHAR);
 		cs.execute();
 		String id = cs.getString(8);
-		
+		cs.close();
 		return id;
 	}
 	

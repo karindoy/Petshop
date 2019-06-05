@@ -5,7 +5,8 @@ use petshop;
 -- Inseri em dono(nome,telefone1, telefone2, bairro, logradouro, num, complemento)  e retorna o id do dono para CADASTRO de PET
 -- -----------------------------------------------------
 DELIMITER $
-CREATE PROCEDURE `p_inserirDono`(in p_nome varchar(100),in p_telefone1 varchar(15), in p_telefone2 varchar(15), in p_bairro varchar(100), in p_logradouro varchar(100), in p_num varchar(10), in p_complemento varchar(45), out p_iddono int)
+CREATE PROCEDURE `p_inserirDono`(in p_nome varchar(100),in p_telefone1 varchar(15), in p_telefone2 varchar(15), 
+in p_bairro varchar(100), in p_logradouro varchar(100), in p_num varchar(10), in p_complemento varchar(45), out p_iddono int)
 BEGIN
 insert into dono(nome,telefone1, telefone2, bairro, logradouro, num, complemento) 
 values
@@ -40,22 +41,39 @@ BEGIN
 END
 $
 
+-- -----------------------------------------------------
+-- 		[Dono] atualizar Dono(nome,telefone1, telefone2, bairro, logradouro, num, complemento) 
+-- -----------------------------------------------------
+DELIMITER $
+CREATE PROCEDURE `p_atualizaDono`(in p_iddono int, in p_nome varchar(100),in p_telefone1 varchar(15), in p_telefone2 varchar(15), 
+in p_bairro varchar(100), in p_logradouro varchar(100), in p_num varchar(10), in p_complemento varchar(45))
+BEGIN
+update dono
+set nome = p_nome,telefone1 = p_telefone1, 
+telefone2 = p_telefone2,bairro = p_bairro,
+logradouro = p_logradouro, num = p_num,
+complemento = p_complemento
+where iddono = p_iddono;
+END
+$
+
 -- call p_deletarDono(1);
 -- -----------------------------------------------------
 -- 				PROCEDURE `p_inserirPet`
 -- 		Inseri em Pet(nome,animal, raca, sexo, peso, tamanho, dono_id, nascimento) 
 -- -----------------------------------------------------
 DELIMITER $
-CREATE PROCEDURE `p_inserirPet`(in p_nome varchar(100),in p_animal varchar(100), in p_raca varchar(100), in p_sexo varchar(100), in p_peso decimal(5,2), in p_tamanho int, in p_dono_id int, in p_nasc varchar(10))
+CREATE PROCEDURE `p_inserirPet`(in p_nome varchar(100),in p_animal varchar(100), in p_raca varchar(100),
+				in p_sexo varchar(100), in p_peso decimal(5,2), in p_tamanho int, in p_dono_id int, in p_nasc varchar(10))
 BEGIN
--- set p_nasc = STR_TO_DATE(p_nasc, '%d.%m.%Y');
+ set  p_nasc = (select converte(p_nasc));
 insert into Pet(nome,animal, raca, sexo, peso, tamanho, dono_id, nascimento) 
 values
 (p_nome, p_animal, p_raca, p_sexo, p_peso, p_tamanho, p_dono_id, p_nasc);
 END
 $
 
--- call p_inserirPet("n","asd","asd","asda",1,1,1,"12/15/2019")
+-- call p_inserirPet("n","asd","asd","asda",1,1,1,"22/11/1952")
 -- -----------------------------------------------------
 -- 		[Pet] consultar ultimos pets cadastrados
 -- -----------------------------------------------------
@@ -77,12 +95,30 @@ SET foreign_key_checks = 1;
 END
 $
 -- call p_deletarPet(5)
+
+-- -----------------------------------------------------
+-- 		[Pet] atualizar Pet(nome,animal, raca, sexo, peso, tamanho, dono_id, nascimento) 
+-- -----------------------------------------------------
+DELIMITER $
+CREATE PROCEDURE `p_atualizaPet`(in p_nome varchar(100),in p_animal varchar(100), in p_raca varchar(100),
+in p_sexo varchar(100), in p_peso decimal(5,2), in p_tamanho int, in p_dono_id int, in p_nasc varchar(10))
+BEGIN
+ set  p_nasc = (select converte(p_nasc));
+update pet
+set nome = p_nome,animal = p_animal, 
+raca = p_raca,sexo = p_sexo,
+peso = p_peso, tamanho = p_tamanho,
+dono_id = p_dono_id, nasc = p_nasc
+where iddono = p_iddono;
+END
+$
 -- -----------------------------------------------------
 -- 		[Agendamento] inserir agendamento(dia,hora,estado, pet_id, servicos_id) 
 -- -----------------------------------------------------
 DELIMITER $
 CREATE PROCEDURE `p_inserirAgenda`(in p_dia varchar(10),in p_hora varchar(5), in p_pet_id int, in p_servicos_id int)
 BEGIN
+ set  p_dia = (select converte(p_dia));
 insert into agendamento(dia,hora,estado, pet_id, servicos_id) 
 values
 (p_dia, p_hora,"agendado", p_pet_id, p_servicos_id);
@@ -106,13 +142,29 @@ on ag.servicos_id=serv.idservicos
 END
 $
 
+-- -----------------------------------------------------
+-- 		[Agenda] atualizar agendamento(dia,hora,estado, pet_id, servicos_id) 
+-- -----------------------------------------------------
+DELIMITER $
+CREATE PROCEDURE `p_atualizaAgenda`(in p_dia varchar(10),in p_hora varchar(5), in p_pet_id int, in p_servicos_id int)
+BEGIN
+ set  p_dia = (select converte(p_dia));
+update agendamento
+set p_dia = dia,hora = p_hora, 
+pet_id = p_pet_id,servicos_id = p_servicos_id
+where iddono = p_iddono;
+END
+$
+
 -- call p_consultaAgenda ("2019/06/23");
 -- -----------------------------------------------------
 -- 		[Produto] inserir produto(nome,preco, categoria,quantidade, descricao, validade) 
 -- -----------------------------------------------------
 DELIMITER $
-CREATE PROCEDURE `p_inserirProduto`(in p_nome varchar(45),in p_preco DECIMAL(8,2), in p_categoria VARCHAR(45),in p_quantidade int, in p_descricao VARCHAR(255), in p_validade varchar(10))
+CREATE PROCEDURE `p_inserirProduto`(in p_nome varchar(45),in p_preco DECIMAL(8,2),
+ in p_categoria VARCHAR(45),in p_quantidade int, in p_descricao VARCHAR(255), in p_validade varchar(10))
 BEGIN
+ set  p_validade = (select converte(p_validade));
 insert into produto(nome,preco, categoria,quantidade, descricao, validade) 
 values
 (p_nome, p_preco, p_categoria,p_quantidade, p_descricao, p_validade);
@@ -174,6 +226,7 @@ DELIMITER $
 CREATE PROCEDURE `p_atualizaProduto`(in p_idproduto int, in p_nome varchar(45),in p_preco DECIMAL(8,2), in p_categoria VARCHAR(45),
 										in p_quantidade int, in p_descricao VARCHAR(255), in p_validade varchar(10))
 BEGIN
+ set  p_validade = (select converte(p_validade));
 update produto
 set nome = p_nome,preco = p_preco, 
 categoria = p_categoria,quantidade = p_quantidade,
@@ -241,12 +294,13 @@ BEGIN
     declare p_validade Date;
     declare novaqtdd int;
     declare qtddatual int;
-    
+	set  p_dia = (select converte(p_validade));
+ 
     set p_nome = (select nome from produto where idproduto = p_produto_id);
     set p_preco = (select preco from produto where idproduto = p_produto_id);
     set p_categoria = (select categoria from produto where idproduto = p_produto_id);
     set p_descricao = (select descricao from produto where idproduto = p_produto_id);
-    set p_validade = (select validade from produto where idproduto = p_produto_id);
+    set p_validade = (select converte(validade) from produto where idproduto = p_produto_id);
     
     set qtddatual =(select quantidade from produto where idproduto = p_produto_id);
     set novaqtdd= qtddatual- p_quantidade;
@@ -280,15 +334,32 @@ $
 -- 			[Fatura] Inseri na fatura(valortotal, Agendamento_id)  
 -- -----------------------------------------------------
 DELIMITER $
-CREATE PROCEDURE `p_inserirFatura`(in p_idservicos int, in p_Agendamento_id int)
+CREATE PROCEDURE `p_inserirFatura`(in p_Agendamento_id int, in p_valorrecebido decimal(8,2))
 BEGIN
-	declare valortotal decimal (9,2);
-set valortotal=  (select preco from servicos where idServicos=p_idservicos);
-insert into fatura(valortotal, Agendamento_id) 
-values
-(p_valortotal,p_quantidade, p_Agendamento_id);
+	declare p_valortotal decimal (9,2);
+	declare p_idservicos int;
+    
+    set p_idservicos =(select Servicos_id from agendamento where idAgendamento=p_Agendamento_id);
+	set p_valortotal=  (select preco from servicos where idServicos=p_idservicos);
+    
+	insert into fatura(valortotal, Agendamento_id, ValorRecebido) 
+	values
+	(p_valortotal, p_Agendamento_id, p_valorrecebido);
 END
 $
 
+-- call `p_inserirFatura`(2, 80.20);
+-- select * from faturap_atualizaProdutop_atualizaProduto
 
-
+-- -----------------------------------------------------
+-- 			Recebe "31/12/2019" retorna "2019/12/31"
+-- -----------------------------------------------------
+DELIMITER $
+CREATE FUNCTION `converte` (dia varchar(10))
+RETURNS varchar(10)
+BEGIN
+	declare diac varchar(10);
+	set diac= ( str_to_date(dia, '%d/%m/%Y'));
+RETURN diac;
+END
+$
