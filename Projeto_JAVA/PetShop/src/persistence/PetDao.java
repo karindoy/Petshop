@@ -34,12 +34,13 @@ public class PetDao {
 		Connection conexao = ConexaoFactory.conectar();
 		
 		List<Pet> listaPets = new ArrayList<Pet>();
-		String sql = "SELECT nome, animal, raca, sexo, peso, tamanho, Dono_id, nascimento FROM pet";
+		String sql = "SELECT * FROM pet";
 
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()){
 			Pet p = new Pet();
+			p.setId(rs.getInt("idPet"));
 			p.setNome(rs.getString("nome"));
 			p.setAnimal(rs.getString("animal"));
 			p.setRaca(rs.getString("raca"));

@@ -40,9 +40,10 @@ public class AgendamentoDao {
 				Agendamento a = new Agendamento();
 				a.setId_pet(rs.getInt("Pet_id"));
 				a.setDia(rs.getString("dia"));
-				a.setStatus(rs.getString("status"));
+				a.setStatus(rs.getString("estado"));
 				a.setHora(rs.getString("hora"));
 				a.setServico(rs.getInt("Servicos_id"));
+				a.setId(rs.getInt("idAgendamento"));
 				listaAgendamento.add(a);
 			}
 		} catch (SQLException e) {

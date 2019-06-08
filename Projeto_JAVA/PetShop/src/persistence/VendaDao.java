@@ -16,7 +16,7 @@ public class VendaDao {
 	public static int IdVenda() throws SQLException{
 		Connection conexao = ConexaoFactory.conectar();
 		
-		String sql = "{? = CALL F_idVenda()}";
+		String sql = "{? = CALL `petshop`.`F_idVenda`()()}";
 		CallableStatement cs = conexao.prepareCall(sql);
 		cs.registerOutParameter(1, Types.INTEGER);
 		int idVenda = cs.getInt(1);
