@@ -5,9 +5,9 @@
 ## Como importar o projeto
 
 - No eclipse vá em **File > import**
-- Escolha na aba(pasta)** General > existing projects into workspace** 
+- Escolha na aba(pasta)**General > existing projects into workspace** 
 - click em **next**
-- selecione o** select root directory** e coloque o** caminho do projeto** na máquina
+- selecione o**select root directory** e coloque o** caminho do projeto** na máquina
 - click em **Finish**
 
 ####Arrumar erros no import
