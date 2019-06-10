@@ -10,7 +10,7 @@
 - selecione o**select root directory** e coloque o** caminho do projeto** na máquina
 - click em **Finish**
 
-####Arrumar erros no import
+#### Arrumar erros no import
 - Click com o **botão direito no projeto**
 - Escolha **properties (último item)**
 - na lista escolha o **Java Build Path**
