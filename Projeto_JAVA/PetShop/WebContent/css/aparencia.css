@@ -3,9 +3,13 @@ body, html {
   height: 100%;
   margin: 0;
   font-family: Arial;
-  background-image: url(IMAGENS/FUNDOPET.png);
+  background-image: url(/PetShop/img/FUNDOPET.jpg);
 }
 
+.cabecalho{
+	background-color: #004080;
+	text-align:center;
+}
 /* Links de guias de estilo */
 .tablink {
   background-color: #555;
@@ -25,7 +29,6 @@ body, html {
 
 /* Estiliza o conteúdo da guia (e adicione a altura: 100% para o conteúdo da página inteira) */
 .tabcontent {
-  color: white;
   display: none;
   padding: 100px 20px;
   height: 100%;

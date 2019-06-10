@@ -12,14 +12,17 @@ import java.util.List;
 import model.Venda;
 
 public class VendaDao {
-	
-	public static int IdVenda() throws SQLException{
+	public static String IdVenda() throws SQLException{
 		Connection conexao = ConexaoFactory.conectar();
 		
-		String sql = "{? = CALL `petshop`.`F_idVenda`()()}";
+		String sql = "{CALL p_idVenda(?)}";
+		
 		CallableStatement cs = conexao.prepareCall(sql);
 		cs.registerOutParameter(1, Types.INTEGER);
-		int idVenda = cs.getInt(1);
+		
+		cs.execute();
+		String idVenda = cs.getString(1);
+		
 		cs.close();
 		return idVenda;
 	}
@@ -58,5 +61,4 @@ public class VendaDao {
 		
 		return listaVenda;
 	}
-	
 }

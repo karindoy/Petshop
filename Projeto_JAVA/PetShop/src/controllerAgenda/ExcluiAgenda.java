@@ -1,4 +1,4 @@
-package controller;
+package controllerAgenda;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -9,16 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import persistence.PetDao;
+import persistence.AgendamentoDao;
 
-
-@WebServlet("/excluiPet")
-public class ExcluiPet extends HttpServlet {
+@WebServlet("/excluiAgenda")
+public class ExcluiAgenda extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    public ExcluiPet() {
+       
+    public ExcluiAgenda() {
         super();
-
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,10 +24,13 @@ public class ExcluiPet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String idPet = request.getParameter("cboxPet");
+		
+		
+		String idAgendados = request.getParameter("cboxAgenda");
+		System.out.println("ID: " +idAgendados);
 		try {
-			PetDao.ExcluiPet(Integer.parseInt(idPet));
-		} catch (NumberFormatException | ClassNotFoundException | SQLException e) {
+			AgendamentoDao.ExcluiAgendamento(Integer.parseInt(idAgendados));
+		} catch (NumberFormatException | SQLException e) {
 			e.printStackTrace();
 		}
 	}

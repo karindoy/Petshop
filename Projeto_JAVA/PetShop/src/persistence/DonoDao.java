@@ -37,12 +37,13 @@ public class DonoDao {
 		Connection conexao = ConexaoFactory.conectar();
 		
 		List<Dono> listaDono = new ArrayList<Dono>();
-		String sql = "SELECT nome, bairro, telefone1, telefone2 FROM dono";
+		String sql = "SELECT * FROM dono";
 
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()){
 			Dono d = new Dono();
+			d.setId(rs.getInt("idDono"));
 			d.setNome(rs.getString("nome"));
 			d.setTelefone1(rs.getString("telefone1"));
 			d.setTelefone2(rs.getString("telefone2"));

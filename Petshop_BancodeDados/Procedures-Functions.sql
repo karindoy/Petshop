@@ -66,7 +66,6 @@ DELIMITER $
 CREATE PROCEDURE `p_inserirPet`(in p_nome varchar(100),in p_animal varchar(100), in p_raca varchar(100),
 				in p_sexo varchar(100), in p_peso decimal(5,2), in p_tamanho int, in p_dono_id int, in p_nasc varchar(10))
 BEGIN
- set  p_nasc = (select converte(p_nasc));
 insert into Pet(nome,animal, raca, sexo, peso, tamanho, dono_id, nascimento) 
 values
 (p_nome, p_animal, p_raca, p_sexo, p_peso, p_tamanho, p_dono_id, p_nasc);
@@ -103,7 +102,7 @@ DELIMITER $
 CREATE PROCEDURE `p_atualizaPet`(in p_nome varchar(100),in p_animal varchar(100), in p_raca varchar(100),
 in p_sexo varchar(100), in p_peso decimal(5,2), in p_tamanho int, in p_dono_id int, in p_nasc varchar(10))
 BEGIN
- set  p_nasc = (select converte(p_nasc));
+
 update pet
 set nome = p_nome,animal = p_animal, 
 raca = p_raca,sexo = p_sexo,
@@ -118,7 +117,7 @@ $
 DELIMITER $
 CREATE PROCEDURE `p_inserirAgenda`(in p_dia varchar(10),in p_hora varchar(5), in p_pet_id int, in p_servicos_id int)
 BEGIN
- set  p_dia = (select converte(p_dia));
+ -- set  p_dia = (select converte(p_dia));
 insert into agendamento(dia,hora,estado, pet_id, servicos_id) 
 values
 (p_dia, p_hora,"agendado", p_pet_id, p_servicos_id);
@@ -148,7 +147,7 @@ $
 DELIMITER $
 CREATE PROCEDURE `p_atualizaAgenda`(in p_dia varchar(10),in p_hora varchar(5), in p_pet_id int, in p_servicos_id int)
 BEGIN
- set  p_dia = (select converte(p_dia));
+
 update agendamento
 set p_dia = dia,hora = p_hora, 
 pet_id = p_pet_id,servicos_id = p_servicos_id
@@ -164,7 +163,7 @@ DELIMITER $
 CREATE PROCEDURE `p_inserirProduto`(in p_nome varchar(45),in p_preco DECIMAL(8,2),
  in p_categoria VARCHAR(45),in p_quantidade int, in p_descricao VARCHAR(255), in p_validade varchar(10))
 BEGIN
- set  p_validade = (select converte(p_validade));
+
 insert into produto(nome,preco, categoria,quantidade, descricao, validade) 
 values
 (p_nome, p_preco, p_categoria,p_quantidade, p_descricao, p_validade);
@@ -226,7 +225,7 @@ DELIMITER $
 CREATE PROCEDURE `p_atualizaProduto`(in p_idproduto int, in p_nome varchar(45),in p_preco DECIMAL(8,2), in p_categoria VARCHAR(45),
 										in p_quantidade int, in p_descricao VARCHAR(255), in p_validade varchar(10))
 BEGIN
- set  p_validade = (select converte(p_validade));
+-- set  p_validade = (select converte(p_validade));
 update produto
 set nome = p_nome,preco = p_preco, 
 categoria = p_categoria,quantidade = p_quantidade,
@@ -294,13 +293,13 @@ BEGIN
     declare p_validade Date;
     declare novaqtdd int;
     declare qtddatual int;
-	set  p_dia = (select converte(p_validade));
+    -- set  p_dia = (select converte(p_validade));
  
     set p_nome = (select nome from produto where idproduto = p_produto_id);
     set p_preco = (select preco from produto where idproduto = p_produto_id);
     set p_categoria = (select categoria from produto where idproduto = p_produto_id);
     set p_descricao = (select descricao from produto where idproduto = p_produto_id);
-    set p_validade = (select converte(validade) from produto where idproduto = p_produto_id);
+    set p_validade = (select validade from produto where idproduto = p_produto_id);
     
     set qtddatual =(select quantidade from produto where idproduto = p_produto_id);
     set novaqtdd= qtddatual- p_quantidade;

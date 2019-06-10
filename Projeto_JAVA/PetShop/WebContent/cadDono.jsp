@@ -3,9 +3,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Inserir dono</title>
-<link rel="stylesheet" type="text/css" href="css/aparencia.css" media="screen" />
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Inserir dono</title>
+	<link rel="stylesheet" type="text/css" href="css/aparencia.css" media="screen" />
+	<script src="js/scripts.js"></script>
 </head>
 <body>
 	<form style="width: 60%;" action="insereDono" method="post" target="_Self">
@@ -24,13 +25,8 @@
 				</tr>
 				<tr>
 					<td>
-						<select name="DonosCad">
-							<option value="1">Dono1</option>
-							<option value="2">Dono2</option>
-							<option value="3">Dono3</option>
-							<option value="4">Dono4</option>
-							<option value="5">Dono5</option>
-						</select>
+						<%String tabela = (String)request.getAttribute("tabela"); %>
+						<%=tabela%>
 					</td>
 				</tr>
 				<tr>

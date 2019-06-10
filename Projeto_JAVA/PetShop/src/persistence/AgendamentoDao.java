@@ -38,12 +38,12 @@ public class AgendamentoDao {
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
 				Agendamento a = new Agendamento();
-				a.setId_pet(rs.getInt("Pet_id"));
-				a.setDia(rs.getString("dia"));
-				a.setStatus(rs.getString("estado"));
-				a.setHora(rs.getString("hora"));
-				a.setServico(rs.getInt("Servicos_id"));
 				a.setId(rs.getInt("idAgendamento"));
+				a.setDia(rs.getString("dia"));
+				a.setHora(rs.getString("hora"));
+				a.setId_pet(rs.getInt("Pet_id"));
+				a.setStatus(rs.getString("estado"));
+				a.setServico(rs.getInt("Servicos_id"));
 				listaAgendamento.add(a);
 			}
 		} catch (SQLException e) {

@@ -1,4 +1,4 @@
-package controller;
+package controllerVenda;
 
 import java.io.IOException;
 import java.sql.SQLException;

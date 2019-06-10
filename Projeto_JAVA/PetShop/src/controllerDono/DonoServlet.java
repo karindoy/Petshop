@@ -1,4 +1,4 @@
-package controller;
+package controllerDono;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -56,5 +56,4 @@ public class DonoServlet extends HttpServlet {
 		}
 		
 	}
-
 }

@@ -1,8 +1,9 @@
-package controller;
+package controllerPet;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,6 +44,8 @@ public class PetServlet extends HttpServlet {
 
 		try {
 			PetDao.AdicionarPet(p);
+			RequestDispatcher rd = request.getRequestDispatcher("cadPet.jsp");
+			rd.forward(request, response);
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}

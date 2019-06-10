@@ -1,10 +1,10 @@
-package controller;
+package controllerAgenda;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,21 +31,24 @@ public class ListaAgenda extends HttpServlet {
 		List<Agendamento> listaAgenda;
 		try {
 			listaAgenda = AgendamentoDao.ConsultarAgendamentos();
-			response.setContentType("text/html");
-			PrintWriter out = response.getWriter();
-			String tabela = "<form style='width: 50%;' action='excluiAgenda' method='post' target='_Blank'> "
-					+ "<fieldset> "
-					+ "<Select name='cboxAgenda'>";
+			StringBuilder tabela = new StringBuilder();
+			
 			for (Agendamento age : listaAgenda) {
-				tabela+="<option value ='"+age.getId()+"'>"+age.getDia()+","+age.getId_pet()+","+age.getServico()+"</option>";
+				tabela.append("<tr> <td>"+age.getId()+"</td>");
+				tabela.append("<td>"+age.getDia()+"</td>");
+				tabela.append("<td>"+age.getHora()+"</td>");
+				tabela.append("<td>"+age.getId_pet()+"</td>");
+				tabela.append("<td>"+age.getStatus()+"</td>");
+				tabela.append("<td>"+age.getServico()+"</td>");
+				tabela.append("<td><input type='radio' value="+age.getId()+" name='cboxAgenda'></td></tr>");
 			}
-			tabela+="</select> "
-					+ "</fieldset> "
-					+ "<input type='submit' style='margin-left:10px' value='Apagar'>";
-			out.println(tabela);
+			tabela.append("</table>");
+			RequestDispatcher rd = request.getRequestDispatcher("execAgenda.jsp");
+			request.setAttribute("tabela", tabela.toString());
+			rd.forward(request, response);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-
 }

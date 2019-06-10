@@ -1,4 +1,4 @@
-package controller;
+package controllerAgenda;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -9,40 +9,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Venda;
-import persistence.VendaDao;
+import model.Agendamento;
+import persistence.AgendamentoDao;
 
-
-@WebServlet("/vendaServlet")
-public class VendaServlet extends HttpServlet {
+@WebServlet("/insereAgenda")
+public class AgendaSerlvet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
-    public VendaServlet() {
+    public AgendaSerlvet() {
         super();
-        
     }
-
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 	}
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Venda v = new Venda();
-		String valorTotal = request.getParameter("cBoxVenda");
-		String id = request.getParameter("id");
-		String qtd = request.getParameter("qtd");
-		v.setValor_total(Double.parseDouble(valorTotal));
-		v.setId(Integer.parseInt(id));
-		v.setQuantidade(Integer.parseInt(qtd));
-		v.setData(request.getParameter("DiaVenda"));
+		Agendamento age = new Agendamento();
+		
+		String idPet = request.getParameter("cBoxPet");
+		
+		System.out.println("id: " +idPet);
+		String idServico = request.getParameter("cBoxServico");
+		age.setId_pet(Integer.parseInt(idPet));
+		age.setDia(request.getParameter("DiaAgenda"));
+		age.setHora(request.getParameter("HoraAgenda"));
+		age.setServico(Integer.parseInt(idServico));
+		
 		try {
-			VendaDao.AdicionarVenda(v);
+			AgendamentoDao.AdicionarAgendamento(age);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-
 }

@@ -43,6 +43,9 @@ public class ProdutoDao {
 			p.setNome(rs.getString("nome"));
 			p.setPreco(rs.getDouble("preco"));
 			p.setCategoria(rs.getString("categoria"));
+			p.setQuantidade(rs.getInt("quantidade"));
+			p.setDescricao(rs.getString("descricao"));
+			p.setValidade(rs.getString("validade"));
 			listaProduto.add(p);
 		}
 		

@@ -1,4 +1,4 @@
-package controller;
+package controllerPet;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -9,15 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Agendamento;
-import persistence.AgendamentoDao;
+import persistence.PetDao;
 
-@WebServlet("/insereAgenda")
-public class AgendaSerlvet extends HttpServlet {
+
+@WebServlet("/excluiPet")
+public class ExcluiPet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public AgendaSerlvet() {
+
+    public ExcluiPet() {
         super();
+
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,18 +26,10 @@ public class AgendaSerlvet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Agendamento age = new Agendamento();
-		
-		String idPet = request.getParameter("cBoxPets");
-		String idServico = request.getParameter("cBoxServico");
-		age.setId_pet(Integer.parseInt(idPet));
-		age.setDia(request.getParameter("DiaAgenda"));
-		age.setHora(request.getParameter("HoraAgenda"));
-		age.setServico(Integer.parseInt(idServico));
-		
+		String idPet = request.getParameter("cboxPet");
 		try {
-			AgendamentoDao.AdicionarAgendamento(age);
-		} catch (SQLException e) {
+			PetDao.ExcluiPet(Integer.parseInt(idPet));
+		} catch (NumberFormatException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 	}
