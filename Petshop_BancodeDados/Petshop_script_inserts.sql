@@ -10,11 +10,12 @@ delete from produto where idproduto>0;
 -- 				inseri dados das tabelas
 -- -----------------------------------------------------
 select * from usuarios;
-insert into usuarios(login,email, senha) 
+SELECT estado from usuarios where login = "illuna" and senha = "illuna";
+insert into usuarios(login,email, senha, estado) 
 values
-("illuna", "illuna@gmail.com","illuna"),
-("bilu", "bilu@gmail.com","bilu"),
-("dezaum", "dezaum@gmail.com","dezaum");
+("illuna", "illuna@gmail.com","illuna", "admin"),
+("bilu", "bilu@gmail.com","bilu", "padrao"),
+("dezaum", "dezaum@gmail.com","lioum", "admin");
 
 
 select * from dono;

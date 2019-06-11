@@ -240,23 +240,25 @@ $
 -- -----------------------------------------------------
 
 DELIMITER $
-CREATE FUNCTION `F_idVenda` ()
-RETURNS int
+CREATE PROCEDURE `p_idvenda` (out p_idvenda int)
 BEGIN
-DECLARE pidvenda int;
 
-set pidvenda =(select idvenda from venda 
-order by pidvenda 
+set p_idvenda =(select idvenda from venda
+order by idvenda
 desc limit 1);
-set pidvenda= pidvenda+1;
-if(pidvenda is null) then
-	set pidvenda = 1;
-end if;
 
-RETURN pidvenda;
+set p_idvenda =p_idvenda+1;
+if(p_idvenda is null) then 
+	set p_idvenda = 1;
+end if;
 END
 $
--- select F_idvenda()
+
+use petshop
+call p_idvenda (@p_idvenda);
+select @p_idvenda;
+
+
 -- -----------------------------------------------------
 -- 			[Venda] Retorna a quantidade * produto
 -- -----------------------------------------------------

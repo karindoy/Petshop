@@ -4,10 +4,11 @@ body, html {
   margin: 0;
   font-family: Arial;
   background-image: url(/PetShop/img/FUNDOPET.jpg);
-}
+  
+ 	
+ }
 
 .cabecalho{
-	background-color: #004080;
 	text-align:center;
 }
 /* Links de guias de estilo */
@@ -60,7 +61,7 @@ table {
 
 }
 thead {
-  background: #ccc url(IMAGENS/BARRA.jpg) repeat-x left center;
+  background: #ccc url(/PetShop/img/BARRA.jpg) repeat-x left center;
   border-top: 1px solid #a5a5a5;
   border-bottom: 1px solid #a5a5a5;
 }

@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `petshop`.`usuarios` (
   `login` VARCHAR(16) NOT NULL,
   `email` VARCHAR(150) NULL,
   `senha` VARCHAR(32) NOT NULL,
+  `estado` varchar(50) not null,
   UNIQUE INDEX `login_UNIQUE` (`login` ASC));
 
 

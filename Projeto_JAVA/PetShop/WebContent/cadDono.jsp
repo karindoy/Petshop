@@ -9,7 +9,7 @@
 	<script src="js/scripts.js"></script>
 </head>
 <body>
-	<form style="width: 60%;" action="insereDono" method="post" target="_Self">
+	<form name="formdono" action="insereDono" method="post" target="_Self" onsubmit="return validaCampoDono()">
 		
 		<fieldset>
 			<legend>Dados do Dono</legend>

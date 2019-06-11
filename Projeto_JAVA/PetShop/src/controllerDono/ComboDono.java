@@ -16,10 +16,10 @@ import persistence.DonoDao;
 
 
 @WebServlet("/comboDono")
-public class ListaDono extends HttpServlet {
+public class ComboDono extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ListaDono() {
+    public ComboDono() {
         super();
         
     }

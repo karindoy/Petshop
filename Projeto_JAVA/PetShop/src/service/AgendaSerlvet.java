@@ -1,4 +1,4 @@
-package controllerAgenda;
+package service;
 
 import java.io.IOException;
 import java.sql.SQLException;

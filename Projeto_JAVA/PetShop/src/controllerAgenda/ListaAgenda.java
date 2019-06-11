@@ -42,9 +42,8 @@ public class ListaAgenda extends HttpServlet {
 				tabela.append("<td>"+age.getServico()+"</td>");
 				tabela.append("<td><input type='radio' value="+age.getId()+" name='cboxAgenda'></td></tr>");
 			}
-			tabela.append("</table>");
-			RequestDispatcher rd = request.getRequestDispatcher("execAgenda.jsp");
-			request.setAttribute("tabela", tabela.toString());
+			RequestDispatcher rd = request.getRequestDispatcher("menu.jsp");
+			request.setAttribute("tabelaAgenda", tabela.toString());
 			rd.forward(request, response);
 			
 		} catch (SQLException e) {

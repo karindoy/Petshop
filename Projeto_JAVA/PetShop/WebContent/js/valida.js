@@ -30,3 +30,26 @@ function validaCampoPet(){
 	    return false;
 	  }
 }
+
+
+function validaCampoDono(){
+	  var nome = document.forms["formdono"]["nomeDono"].value;
+	  if (nome == "") {
+	    alert("Preencha o nome");
+	    return false;
+	  }
+	  
+	  var logradouro = document.forms["formdono"]["logradouro"].value;
+	  if (logradouro == "") {
+	    alert("Preencha o logradouro");
+	    return false;
+	  }
+	  
+	  var telefone = document.forms["formdono"]["telefone"].value;
+	  if (telefone == "") {
+	    alert("Preencha o primeiro telefone");
+	    return false;
+	  }
+
+}
+

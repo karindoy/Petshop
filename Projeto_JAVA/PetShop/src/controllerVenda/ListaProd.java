@@ -43,8 +43,8 @@ public class ListaProd extends HttpServlet {
 			}
 			
 			tabela.append("</table>");
-			RequestDispatcher rd = request.getRequestDispatcher("execProd.jsp");
-			request.setAttribute("tabela", tabela.toString());
+			RequestDispatcher rd = request.getRequestDispatcher("menu.jsp");
+			request.setAttribute("tabelaProd", tabela.toString());
 			rd.forward(request, response);
 
 		} catch (ClassNotFoundException | SQLException e) {

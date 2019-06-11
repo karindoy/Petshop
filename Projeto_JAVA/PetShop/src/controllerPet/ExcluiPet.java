@@ -26,6 +26,10 @@ public class ExcluiPet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String permicoes = request.getParameter("user");
+		
+		System.out.println("permicoes"+ permicoes);
+		
 		String idPet = request.getParameter("cboxPet");
 		try {
 			PetDao.ExcluiPet(Integer.parseInt(idPet));

@@ -48,8 +48,8 @@ public class ListaPet extends HttpServlet {
 			}
 			
 			tabela.append("</table>");
-			RequestDispatcher rd = request.getRequestDispatcher("execPet.jsp");
-			request.setAttribute("tabela", tabela.toString());
+			RequestDispatcher rd = request.getRequestDispatcher("menu.jsp");
+			request.setAttribute("tabelaPet", tabela.toString());
 			rd.forward(request, response);
 			
 		} catch (ClassNotFoundException | SQLException e) {

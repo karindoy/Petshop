@@ -1,4 +1,4 @@
-package controllerDono;
+package service;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -39,6 +39,9 @@ public class DonoServlet extends HttpServlet {
 			rd.forward(request, response);
 		}else{
 			d.setNome(request.getParameter("nomeDono"));
+			if(d.getNome()==""){
+				d.setNome(null);
+			}
 			d.setBairro(request.getParameter("bairro"));
 			d.setLogradouro(request.getParameter("logradouro"));
 			d.setNum(request.getParameter("num"));
